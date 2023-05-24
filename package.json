@@ -19,7 +19,7 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "peerDependencies": {
+  "dependencies": {
     "json5": "^2.2.3",
     "jsonc": "^2.0.0"
   },
