@@ -4,13 +4,19 @@ import json5 from "json5";
 import { Plugin } from "vite";
 
 interface PluginOptions {
-  jsoncOptions?: Parameters<typeof jsonc.safe.parse>[1];
-  json5Options?: Parameters<typeof json5.parse>[1];
+  json5ParserOptions?: Parameters<typeof json5.parse>[1];
+  jsoncParserOptions?: Parameters<typeof jsonc.safe.parse>[1];
 }
 
-const vitePluginJsonx = ({
-  json5Options: json5ParseOptions,
-  jsoncOptions: jsoncParseOptions,
+/**
+ * Vite plugin for importing JSONC and JSON5 files as JSON.
+ *
+ * @param {object} options.json5ParserOptions - More details: https://github.com/json5/json5#json5parse
+ * @param {object} options.jsoncParserOptions - More details: https://onury.io/jsonc//api#jsonc.safe.parse
+ */
+export const jsonX = ({
+  json5ParserOptions,
+  jsoncParserOptions,
 }: PluginOptions = {}): Plugin => {
   return {
     name: "vite-plugin-jsonx", // name of the plugin
@@ -27,13 +33,13 @@ const vitePluginJsonx = ({
       try {
         if (id.endsWith(".json5")) {
           const content = fs.readFileSync(id, "utf-8");
-          const data = json5.parse(content, json5ParseOptions);
+          const data = json5.parse(content, json5ParserOptions);
           return `export default ${JSON.stringify(data)};`;
         }
 
         if (id.endsWith(".jsonc")) {
           const content = fs.readFileSync(id, "utf-8");
-          const [err, data] = jsonc.safe.parse(content, jsoncParseOptions);
+          const [err, data] = jsonc.safe.parse(content, jsoncParserOptions);
           if (err) throw new Error(err.message);
           return `export default ${JSON.stringify(data)};`;
         }
@@ -47,5 +53,3 @@ const vitePluginJsonx = ({
     },
   };
 };
-
-export default vitePluginJsonx;
