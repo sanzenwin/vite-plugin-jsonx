@@ -23,13 +23,23 @@ Or you can use yarn:
 To use this plugin, first add it to your vite.config.js or vite.config.ts:
 
 ```js
-import vitePluginJsonx from 'vite-plugin-jsonx';
+import { jsonX } from 'vite-plugin-jsonx';
 
 export default {
   plugins: [
-    vitePluginJsonx({
-      json5Options: {}, // optional, custom options for json5
-      jsoncOptions: {}  // optional, custom options for jsonc
+    jsonX()
+  ]
+}
+```
+
+or with custom options: 
+
+```js
+export default {
+  plugins: [
+    jsonX({
+      json5ParserOptions // optional, custom parser options for json5
+      jsoncParserOptions // optional, custom parser options for jsonc
     })
   ]
 }
@@ -44,5 +54,5 @@ With this setup, you can now import JSONC and JSON5 files in your application:
 
 This plugin supports the following options:
 
-- `jsoncOptions`: An optional object with custom parsing options for JSONC files.
-- `json5Options`: An optional object with custom parsing options for JSON5 files.
+- `jsoncParserOptions`: An optional object with custom parsing options for JSONC files. For more information, [visit the documentation](https://onury.io/jsonc//api#jsonc.safe.parse).
+- `json5ParserOptions`: An optional object with custom parsing options for JSON5 files. For more information, [visit the documentation](https://github.com/json5/json5#json5parse).
