@@ -45,6 +45,12 @@ export default {
 }
 ```
 
+Add the following to your `env.d.ts` file:
+
+```ts
+/// <reference types="vite-plugin-jsonx/client" />
+```
+
 With this setup, you can now import JSONC and JSON5 files in your application:
 
     import datac from './data.jsonc';
