@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-jsonx",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Gokhan Taskan",
   "license": "MIT",
   "main": "dist/index.js",
@@ -15,9 +15,9 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsdx build --target node",
     "test": "tsdx test",
-    "lint": "tsdx lint",
+    "lint": "tsdx lint .",
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why"
