@@ -8,7 +8,8 @@
   "module": "dist/vite-plugin-jsonx.esm.js",
   "files": [
     "dist",
-    "src"
+    "src",
+    "client.d.ts"
   ],
   "engines": {
     "node": ">=16"
