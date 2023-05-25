@@ -1,23 +1,17 @@
 import fs from "fs";
 import { jsonc } from "jsonc";
-import { IParseOptions, Reviver } from "jsonc/lib/interfaces";
-import { createRequire } from "module";
-import type { Plugin } from "vite";
-
-// Create a require function
-const require = createRequire(import.meta.url);
-const json5 = require("json5");
+import json5 from "json5";
+import { Plugin } from "vite";
 
 interface PluginOptions {
-  jsoncOptions?: IParseOptions | Reviver;
-  json5Options?: ((this: any, key: string, value: any) => any) | null;
+  jsoncOptions?: Parameters<typeof jsonc.safe.parse>[1];
+  json5Options?: Parameters<typeof json5.parse>[1];
 }
 
-const vitePluginJsonx = (
-  { json5Options: json5ParseOptions, jsoncOptions: jsoncParseOptions }: PluginOptions = {
-    json5Options: null,
-  }
-): Plugin => {
+const vitePluginJsonx = ({
+  json5Options: json5ParseOptions,
+  jsoncOptions: jsoncParseOptions,
+}: PluginOptions = {}): Plugin => {
   return {
     name: "vite-plugin-jsonx", // name of the plugin
 
@@ -44,7 +38,9 @@ const vitePluginJsonx = (
           return `export default ${JSON.stringify(data)};`;
         }
       } catch (error) {
-        throw new Error(`Error while parsing ${id}: ${(error as any).message}`);
+        throw new Error(
+          `Error while parsing ${id}:: ${(error as any).message}`
+        );
       }
 
       return null; // other ids should be handled as usually
