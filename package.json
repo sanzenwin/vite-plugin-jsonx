@@ -1,6 +1,6 @@
 {
-  "name": "vite-plugin-jsonx",
-  "version": "1.1.2",
+  "name": "@sanzenwin/vite-plugin-jsonx",
+  "version": "1.1.2001",
   "author": "Gokhan Taskan",
   "license": "MIT",
   "main": "dist/index.js",
