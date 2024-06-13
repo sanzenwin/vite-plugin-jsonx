@@ -15,7 +15,8 @@ interface PluginOptions {
 
 const mapDefault: Map = {
   'json5': 'json5',
-  'jsonc': 'jsonc'
+  'jsonc': 'jsonc',
+  'json': 'json'
 }
 
 const typeList = Object.values(mapDefault)
@@ -49,7 +50,11 @@ export const jsonX = ({json5ParserOptions, jsoncParserOptions, map}: PluginOptio
     async load(id: string) {
       const type = getType(map, id)
       try {
-        if (type === "json5") {
+        if (type === "json") {
+          const content = fs.readFileSync(id, "utf-8");
+          const data = json5.parse(content, json5ParserOptions);
+          return JSON.stringify(data);
+        } else if (type === "json5") {
           const content = fs.readFileSync(id, "utf-8");
           const data = json5.parse(content, json5ParserOptions);
           return `export default ${JSON.stringify(data)};`;
